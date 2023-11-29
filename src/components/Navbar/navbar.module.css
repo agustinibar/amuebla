@@ -4,31 +4,37 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #bc4749; /* Cambia este color de fondo según tu preferencia */
-    color: #fff;
+    background-color: white; 
+    color: black;
     padding: 10px;
   }
   
   .navbarTitle {
-    font-size: 24px;
+    font-size: 50px;
     text-decoration: none;
-    color: #fff;
+    color: black;
+    font-family: 'Ephesis', cursive;
   }
-  
   .navbarButton {
     background-color: #fff;
-    color: #bc4749;
+    color:  black;
     border: none;
-    border-radius: 5px;
     font-size: 18px;
     padding: 10px 20px;
     margin: 0 10px;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
+    font-family: 'Jost', sans-serif;
   }
   
   .navbarButton:hover {
-    background-color: #6a994e;
+    background-color: black;
     color: #fff;
+  }
+  
+  .carritoImage {
+    width: 50px; /* Valor entero */
+    height: 35px; /* Valor entero */
+    margin-left: 10px;
   }
   

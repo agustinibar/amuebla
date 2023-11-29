@@ -1,0 +1,25 @@
+/* searchBar.module.css */
+
+.searchBarContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    margin: 20px auto;
+  }
+  
+  .searchInput {
+    padding: 10px;
+    width: 100%;
+  }
+  
+  .searchResults {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+  }
+  
+  .searchResults li {
+    margin: 5px 0;
+  }
+  

@@ -72,7 +72,7 @@ export const Dashboard = () => {
         <input
         className={styles.formInput}
         placeholder="Precio"
-        type='number'
+        type='text'
         onChange={(e) => setProductPrice(e.target.value)}
       ></input>
        <input

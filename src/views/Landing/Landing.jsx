@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { auth, googleProvider } from '../../firebase/config';
 import { createUserWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import styles from '../Landing/landing.module.css';
+import landingPage from '../../assets/landingPage.mp4';
+
 
 export const Landing = () => {
   const [email, setEmail] = useState("")
@@ -36,7 +38,14 @@ export const Landing = () => {
       }
   }
   return(
-      <div className={styles.loginContainer}>
+    <div className={styles.loginContainer}>
+    <video className={styles.videoBackground} autoPlay loop muted>
+      <source src={landingPage} type="video/mp4" />
+      Tu navegador no soporta el elemento de video.
+    </video>
+
+    <div className={styles.overlay}>
+      <h1 className={styles.title}>Chateau Design</h1>
       <input
         className={styles.loginInput}
         placeholder="Email..."
@@ -58,5 +67,6 @@ export const Landing = () => {
         Log Out
       </button>
     </div>
+  </div>
   )
 }

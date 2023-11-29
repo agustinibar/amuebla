@@ -1,36 +1,69 @@
 /* Login.module.css */
 
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
 .loginContainer {
-    max-width: 300px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  
-  .loginInput {
-    width: 100%;
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  .loginButton {
-    width: 100%;
-    margin: 10px 0;
-    padding: 10px;
-    background-color: #bc4749;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 18px;
-    cursor: pointer;
-  }
-  
-  .loginButton:hover {
-    background-color: #6a994e;
-  }
-  
-  .loginError {
-    color: red;
-  }
+  position: relative; 
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.videoBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
+  height: 100%;
+  left: 50%; /* Centra el elemento horizontalmente en relación con el contenedor padre */
+  transform: translateX(-50%);/* Corrige la posición para centrarlo completamente */
+}
+
+.title {
+  font-family: 'Ephesis', cursive;
+  font-size: 3rem;
+  color: #fff;
+}
+
+.loginInput {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.loginButton {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  background-color: black;
+  color: #fff;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.loginButton:hover {
+  background-color: grey;
+}
+
+.loginError {
+  color: red;
+}

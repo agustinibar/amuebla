@@ -17,6 +17,7 @@
   .productDetails {
     flex-grow: 1;
     margin-left: 20px;
+    font-family: 'Jost', sans-serif;
   }
   
   .productName {
@@ -24,16 +25,127 @@
     margin-bottom: 10px;
   }
   
-  .description {
+  .descriptionTittle {
     font-size: 20px;
+  }
+  
+  .description {
+    font-size: 15px;
   }
   
   .availability {
     font-size: 16px;
     margin-bottom: 10px;
+    
+  }
+  .availabilityNumber{
+    border: 1px solid black;
+    padding-left: 35%;
   }
   
   .price {
     font-size: 24px;
+  }
+  
+  .commentsSection {
+    margin-top: 20px;
+    margin: 0 auto;
+    width: 99%;
+  }
+  
+  .commentsSection h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    font-family: 'Jost', sans-serif;
+  }
+  
+  .commentsList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 auto;
+    width: 99%;
+    
+  }
+  
+  .commentItem {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-family: 'Jost', sans-serif;
+  }
+  
+  .commentItem p {
+    margin: 0;
+  }
+  
+  .commentForm {
+    margin-top: 20px;
+    margin: 0 auto;
+    width: 99%;
+  }
+  
+  .commentForm textarea {
+    width: 100%;
+    margin-bottom: 10px;
+    height: 100px;
+  }
+  
+  .commentForm button {
+    background-color: black;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .commentForm button:hover {
+    background-color: grey;
+    color: #fff;
+  }
+
+  .commentButton {
+      background-color: black;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+      font-family: 'Jost', sans-serif;
+      font-size: 20px;
+      width: 100%; 
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .whatsappButton {
+    background-color: #25d366;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .comprarButton{
+    background-color: black;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    font-family: 'Jost', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  .comprarButton:hover{
+    background-color: grey;
+    color: #fff;
   }
   

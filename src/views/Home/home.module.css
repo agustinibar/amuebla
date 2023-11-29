@@ -1,4 +1,8 @@
-
+/* home.module.css */
+body{
+  overflow-y: auto; 
+  min-height: 100vh; /* Mínimo 100% de la altura de la ventana */
+}
 .cardContainer {
   display: flex;
   flex-wrap: wrap;
@@ -8,9 +12,18 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 16px;
-  margin: 16px;
-  max-width: 300px;
+  padding-bottom: 5px;
+  margin: 5px;
+  max-width: 250px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; 
+  font-family: 'Jost', sans-serif;
+  font-size: 20px;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(7, 7, 7, 0.3);
 }
 
 .card img {
@@ -18,4 +31,12 @@
   height: auto;
   border-radius: 4px;
   margin-top: 8px;
+  filter: grayscale(100%); 
+  transition: filter 0.3s ease-in-out;
 }
+
+.card:hover img {
+  filter: grayscale(0%); 
+}
+
+
