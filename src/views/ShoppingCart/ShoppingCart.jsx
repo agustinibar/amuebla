@@ -23,7 +23,7 @@ export const ShoppingCart = () => {
       });
   
       return () => {
-        unsubscribeAuth(); // Limpiar suscripción cuando el componente se desmonte
+        unsubscribeAuth(); 
       };
     }, []);
   
@@ -32,21 +32,26 @@ export const ShoppingCart = () => {
         try {
           if (currentUser) {
             const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
-  
+    
             if (userDoc.exists() && userDoc.data().shoppingCart) {
               const cartProducts = userDoc.data().shoppingCart;
-  
+    
               const productsPromises = cartProducts.map(async (item) => {
-                const productDoc = await getDoc(doc(db, 'products', item.productId));
-                const productData = { ...productDoc.data(), quantity: item.quantity };
-  
-                productData.total = productData.quantity * productData.productPrice;
-  
+                const productData = {
+                  description: item.description,
+                  disponible: item.disponible,
+                  imageUrl: item.imageUrl,
+                  name: item.name,
+                  productPrice: item.productPrice,
+                  quantity: item.quantity,
+                  total: item.total,
+                };
+    
                 return productData;
               });
-  
+    
               const productsData = await Promise.all(productsPromises);
-  
+    
               setCartItems(productsData);
               const total = productsData.reduce((acc, item) => acc + item.total, 0);
               setTotalAmount(total);
@@ -57,10 +62,9 @@ export const ShoppingCart = () => {
           console.error('Error al obtener el carrito de compras:', error);
         }
       };
-  
+    
       fetchCartItems();
     }, [currentUser]);
-    
 
     
       const createPreference = async()=>{
@@ -85,7 +89,6 @@ export const ShoppingCart = () => {
           return null;
         }
       };
-    
       const handleBuyMercadoPago = async()=>{
         try {
           const id = await createPreference();
@@ -97,6 +100,11 @@ export const ShoppingCart = () => {
         }
       };
       
+      const updateTotalAmount = (items) => {
+        const total = items.reduce((acc, item) => acc + item.total, 0);
+        setTotalAmount(total);
+      };
+    
       const updateCartInFirestore = async(updatedCart)=>{ 
         try {
           if(auth.currentUser){
@@ -106,7 +114,7 @@ export const ShoppingCart = () => {
         } catch (error) {
           console.error("Ocurrio un problema al actualizar el carrito:", error)
         }
-      }
+      };
 
       const handleIncreaseQuantity = (name) => {
         const updatedCart = cartItems.map((item) =>
@@ -117,6 +125,7 @@ export const ShoppingCart = () => {
     
         setCartItems(updatedCart);
         updateCartInFirestore(updatedCart);
+        updateTotalAmount(updatedCart);
       };
     
       const handleDecreaseQuantity = (name) => {
@@ -132,8 +141,16 @@ export const ShoppingCart = () => {
     
         setCartItems(updatedCart);
         updateCartInFirestore(updatedCart);
+        updateTotalAmount(updatedCart);
       };
+      const handleRemoveProduct = (name) => {
+        const updatedCart = cartItems.filter((item) => item.name !== name);
       
+        setCartItems(updatedCart);
+        updateCartInFirestore(updatedCart);
+        updateTotalAmount(updatedCart); 
+      };
+     
   return (
         <>
         <Navbar/>
@@ -153,8 +170,9 @@ export const ShoppingCart = () => {
                         {item.quantity}{' '}
                         <button onClick={() => handleDecreaseQuantity(item.name)}>-</button>
                       </p>
-                        <p className={styles.productPrice}>Precio: ${item.productPrice.toLocaleString()}</p>
-                        <p className={styles.productPrice}>Total p/ Producto: ${item.total.toLocaleString()}</p>
+                        <p className={styles.productPrice}>Precio: ${item.productPrice?.toLocaleString()}</p>
+                        <p className={styles.productPrice}>Total p/ Producto: ${item.total?.toLocaleString()}</p>
+                        <span className={styles.removeButton} onClick={()=> handleRemoveProduct(item.name)} role="img" aria-label="cruz">❌</span>
                     </div>
                     </li>
                 ))}

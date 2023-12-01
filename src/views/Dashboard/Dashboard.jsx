@@ -1,92 +1,84 @@
-import { addDoc, collection } from 'firebase/firestore';
 import React, { useState } from 'react'
-import { auth, db, storage } from '../../firebase/config';
-import { Navbar } from '../../components/Navbar/Navbar';
-import styles from '../Dashboard/dashboard.module.css';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { v4 } from 'uuid';
+import { Navbar } from '../../components/Navbar/Navbar'
+import styles from '../Dashboard/dashboard.module.css'
+import { Analisis } from '../../components/AdminMenu/AnalisisTrafico/Analisis'
+import { ChargeProduct }  from '../../components/AdminMenu/ChargeProduct/ChargeProduct'
+import { Comments } from '../../components/AdminMenu/ComentariosRate/Comments'
+import { Gestion } from '../../components/AdminMenu/GestionProducto/Gestion'
+import { Orders } from '../../components/AdminMenu/Orders/Orders'
+import { SecurityUser } from '../../components/AdminMenu/SeguridadUsuarios/SecurityUser'
+import { SellProducts } from '../../components/AdminMenu/SellProducts/SellProducts'
+import { Stadistics } from '../../components/AdminMenu/Stadistics/Stadistics'
+import { Support } from '../../components/AdminMenu/Support/Support'
 
 export const Dashboard = () => {
-    const [newProductName, setNewProductName] = useState("");
-    const [newProductDescription, setNewProductDescription] = useState("");
-    const [disponible, setNewDisponible] = useState(0);
-    const [productPrice, setProductPrice] = useState(0);
-    const [file, setFile] = useState(null);
+    const [selectedComponent, setSelectedComponent] = useState(null)
 
-   //rutas de informacion:
-   const productsCollectionRef= collection(db, "products"); 
- 
-   //funcion para crear propiedades
-   const onSubmitProp = async () => {
-     try {
-       let imageUrl = null; 
-       
-       if(file){
-        const folderRef = ref(storage, `products/${file.name + v4()}`);
-        await uploadBytes(folderRef, file);
-        imageUrl = await getDownloadURL(folderRef);
-       }
-       
-         await addDoc(productsCollectionRef, {
-           name: newProductName,
-           description: newProductDescription,
-           disponible: disponible,
-           productPrice: productPrice,
-           imageUrl: imageUrl,
-           userId: auth?.currentUser?.uid,
-         });
-     
- 
-       // se limpia el estado 
-       setNewProductName("");
-       setNewProductDescription("");
-       setNewDisponible(0);
-       setProductPrice(0);
-       setFile(null);
-       alert('El producto se ha cargado con exito!');
-     } catch (error) {
-       console.log(error)
-     }
-   };
-    return (
-      <>
-      <Navbar />
-      <div className={styles.createContainer}>
-      <h1>Especificaciones del producto: </h1>
-      <input
-        className={styles.formInput}
-        placeholder="Nombre"
-        onChange={(e) => setNewProductName(e.target.value)}
-      ></input>
-      <input
-        className={styles.formInput}
-        placeholder="Descripcion"
-        onChange={(e) => setNewProductDescription(e.target.value)}
-      ></input>
-      <input
-        className={styles.formInput}
-        placeholder="Disponibilidad"
-        type='number'
-        onChange={(e) => setNewDisponible(e.target.value)}
-      ></input>
-        <input
-        className={styles.formInput}
-        placeholder="Precio"
-        type='text'
-        onChange={(e) => setProductPrice(parseFloat(e.target.value))}
-      ></input>
-       <input
-              className={styles.range}
-              onChange={(e)=> setFile(e.target.files[0])}
-              type="file"
-              name="imageFile"
-              accept="image/*"
-            />
-            <p>{file?.name}</p>
-      <button className={styles.createButton} onClick={onSubmitProp}>
-        Cargar producto
-      </button>
+    const renderComponent = (selectedComponent) => {
+        switch (selectedComponent) {
+        case 'Analisis':
+            return <Analisis/>;
+        case 'Charge Product':
+            return <ChargeProduct/>;
+        case 'Comments':
+            return <Comments/>;
+        case 'Gestion':
+            return <Gestion/>;
+        case 'Orders':
+            return <Orders/>;
+        case 'SecurityUser':
+            return <SecurityUser/>;
+        case 'Sell Products':
+            return <SellProducts/>;
+        case 'Stadistics':
+            return <Stadistics/>;
+        case 'Support':
+            return <Support/>;    
+          default:
+            return null;
+        }
+      };
+
+      const handleMenuClick = (menuItem) => {
+        // Actualiza el estado al hacer clic en un elemento del menú
+        setSelectedComponent(menuItem);
+      };
+
+  return (
+    <>
+    <Navbar />
+    <div className={styles.container}>
+      <ul className={styles.menuList}>
+        <li className={styles.menuItem}>
+          <button className={styles.menuButton} onClick={()=> handleMenuClick('Charge Product')}>Cargar Producto</button>
+        </li>
+        <li className={styles.menuItem}>
+          <button className={styles.menuButton} onClick={()=> handleMenuClick('Gestion')}>Gestión de Productos</button>
+        </li>
+        <li className={styles.menuItem}>
+          <button className={styles.menuButton} onClick={()=> handleMenuClick('Comments')}>Comentarios y Reseñas</button>
+        </li>
+        <li className={styles.menuItem}>
+          <button className={styles.menuButton} onClick={()=> handleMenuClick('SecurityUser')}>Seguridad Y Usuarios</button>
+        </li>
+        <li className={styles.menuItem}>
+          <button className={styles.menuButton} onClick={()=> handleMenuClick('Sell Products')}>Productos Vendidos</button>
+        </li>
+        <li className={styles.menuItem}>
+          <button className={styles.menuButton} onClick={()=> handleMenuClick('Analisis')}>Análisis de Tráfico</button>
+        </li>
+        <li className={styles.menuItem}>
+          <button className={styles.menuButton} onClick={()=> handleMenuClick('Orders')}>Órdenes y Transacciones</button>
+        </li>
+        <li className={styles.menuItem}>
+          <button className={styles.menuButton} onClick={()=> handleMenuClick('Support')}>Ayuda y Soporte</button>
+        </li>
+        <li className={styles.menuItem}>
+          <button className={styles.menuButton} onClick={()=> handleMenuClick('Stadistics')}>Informes y Estadísticas</button>
+        </li>
+      </ul>
+      {selectedComponent && renderComponent(selectedComponent)}
     </div>
-      </>
+  </>
   )
 }

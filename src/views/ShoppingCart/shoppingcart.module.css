@@ -33,10 +33,10 @@
 }
 
 .productName {
-  margin-right: 20px;
+  margin-right: 3.5rem;
 }
 .productPrice {
-    margin-left: 20%;
+    margin-left: 15%;
 }
 .mercadoPagoButton{
   background-color: #00a1df;
@@ -46,4 +46,8 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.removeButton{
+  margin-left: 6rem;
 }
