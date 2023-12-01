@@ -38,3 +38,12 @@
 .productPrice {
     margin-left: 20%;
 }
+.mercadoPagoButton{
+  background-color: #00a1df;
+  color: #ffffff;
+  padding: 10px;
+  margin-left: 40px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

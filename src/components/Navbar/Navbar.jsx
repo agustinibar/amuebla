@@ -33,12 +33,12 @@ export const Navbar = () => {
       <Link to="/home" className={styles.navbarTitle}>
         Chateau
       </Link>
-      { auth.currentUser.email === 'agustinibarperrotta@gmail.com' ? 
+     
       <div>
        <button className={styles.navbarButton} onClick={toDashboard}>
           Dashboard
         </button>
-      </div> : null}
+      </div> 
       
       <IconButton
         style={{ color: 'black' }} 

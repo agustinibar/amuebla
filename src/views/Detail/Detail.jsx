@@ -12,11 +12,10 @@ import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 export const Detail = () => {
   const { id } = useParams();
   const [product, setProduct] = useState([]);
-  const [preferenceId, setPreferenceId] = useState(null);
   const [comments, setNewComments] = useState([])
   const [newComment, setNewComment] = useState('');
 
-  initMercadoPago("TEST-b1609369-11aa-4417-ac56-d07ef28cfcff");
+ 
 
   useEffect(()=>{
     const detailId = async () =>{
@@ -58,37 +57,8 @@ export const Detail = () => {
     
   }, []);
 
-  const createPreference = async()=>{
-    try {
-      if(!product){
-        return null;
-      }
-      const response = await axios.post(`https://apimercadopago.onrender.com/createorder`,{
-        description: `${product.name}`,
-        price:`${product.productPrice}`,
-        quantity: `1`,
-        currency_id: "ARS"
-      });
 
-      const {id} = response.data;
-
-      return id; 
-    } catch (error) {
-      console.error(`Error al crear la preferencia de pago:`, error);
-      return null;
-    }
-  };
-
-  const handleBuy = async()=>{
-    try {
-      const id = await createPreference();
-      if(id){
-        setPreferenceId(id)
-      }
-    } catch (error) {
-      console.error(`HandleBuyError`, error)
-    }
-  };
+ 
 
   const addProduct = async()=>{
     try {
@@ -174,8 +144,6 @@ export const Detail = () => {
               Contáctanos por WhatsApp
             </button>
             <button className={styles.comprarButton} onClick={addProduct}>Añade al carrito</button>
-            {/* <button className={styles.comprarButton} onClick={handleBuy}>Añade al carrito</button>
-            {preferenceId && <Wallet initialization={{ preferenceId: preferenceId }} />} */}
                 </div>
         </>
         ) : (
