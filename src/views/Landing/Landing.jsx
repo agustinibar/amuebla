@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { auth, googleProvider } from '../../firebase/config';
+import { auth, db, googleProvider } from '../../firebase/config';
 import { createUserWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import styles from '../Landing/landing.module.css';
 import landingPage from '../../assets/landingPage.mp4';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 
 export const Landing = () => {
@@ -12,11 +13,23 @@ export const Landing = () => {
   const navigate = useNavigate();
 
 
-  console.log(auth?.currentUser?.email);
+
   // funcion para signIn
   const signIn = async()=>{
       try {
           await createUserWithEmailAndPassword(auth, email, password);      
+
+          const userDoc = doc(db, 'users', auth.currentUser.uid);
+          const docSnapshot = await getDoc(userDoc);
+
+          if (!docSnapshot.exists()) {
+            await setDoc(userDoc, {
+              email: auth.currentUser.email,
+              shoppingCart: []          
+            });
+
+          }
+
           navigate('/home')
       } catch (error) {
           console.log(error)
@@ -25,6 +38,17 @@ export const Landing = () => {
   const signInGoogle = async()=>{
       try {
           await signInWithPopup(auth, googleProvider);
+
+          const userDoc = doc(db, 'users', auth.currentUser.uid);
+          const docSnapshot = await getDoc(userDoc);
+
+          if (!docSnapshot.exists()) {
+            await setDoc(userDoc, {
+              email: auth.currentUser.email,
+              shoppingCart: []          
+            });
+
+          }
           navigate('/home')
       } catch (error) {
           console.log(error)
@@ -62,9 +86,6 @@ export const Landing = () => {
       </button>
       <button className={styles.loginButton} onClick={signInGoogle}>
         Google
-      </button>
-      <button className={styles.loginButton} onClick={logOut}>
-        Log Out
       </button>
     </div>
   </div>

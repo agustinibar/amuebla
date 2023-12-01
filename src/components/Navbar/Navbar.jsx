@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { auth } from '../../firebase/config';
 import styles from '../Navbar/navbar.module.css';
 import { ShoppingCartOutlined } from '@mui/icons-material';
@@ -33,17 +33,21 @@ export const Navbar = () => {
       <Link to="/home" className={styles.navbarTitle}>
         Chateau
       </Link>
+      { auth.currentUser.email === 'agustinibarperrotta@gmail.com' ? 
       <div>
-        <button className={styles.navbarButton} onClick={toDashboard}>
+       <button className={styles.navbarButton} onClick={toDashboard}>
           Dashboard
         </button>
-      </div>
+      </div> : null}
+      
       <IconButton
         style={{ color: 'black' }} 
         onMouseEnter={(e) => (e.target.style.color = 'gray')} 
         onMouseLeave={(e) => (e.target.style.color = 'black')} 
       >
-        <ShoppingCartOutlined style={{ fontSize: 30 }} />
+        <NavLink to={'/shoppingcart'}>
+        <ShoppingCartOutlined style={{ fontSize: 30 }}/>
+        </NavLink>
       </IconButton>
       <div>
         <button className={styles.navbarButton} onClick={logOut}>

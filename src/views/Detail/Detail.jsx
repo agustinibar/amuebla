@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
+import { addDoc, arrayUnion, collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { auth, db } from '../../firebase/config';
@@ -90,6 +90,46 @@ export const Detail = () => {
     }
   };
 
+  const addProduct = async()=>{
+    try {
+      // Obtener el documento del usuario actual
+      const userDoc = doc(db, 'users', auth.currentUser.uid);
+      const docSnapshot = await getDoc(userDoc);
+
+      // Verificar si el documento del usuario existe en Firestore
+      if (docSnapshot.exists()) {
+        // Verificar si el producto ya está en el carrito
+        const existingProduct = docSnapshot.data().shoppingCart.find(item => item.productId === id);
+
+        if (existingProduct) {
+          // Si el producto ya está en el carrito, actualizar la cantidad sumándole un número específico
+          const incrementAmount = 1; // Puedes ajustar este número según tus necesidades
+          await updateDoc(userDoc, {
+            shoppingCart: docSnapshot.data().shoppingCart.map(item => (
+              item.productId === id
+                ? { ...item, quantity: item.quantity + incrementAmount }
+                : item
+            )),
+          });
+        } else {
+          // Si el producto no está en el carrito, agregarlo con cantidad 1
+          await updateDoc(userDoc, {
+            shoppingCart: arrayUnion({ productId: id, quantity: 1 }),
+          });
+        }
+      } else {
+        // Si el documento no existe, crear uno nuevo con el campo "shoppingCart"
+        await setDoc(userDoc, {
+          email: auth.currentUser.email,
+          shoppingCart: [{ productId: id, quantity: 1 }],
+        });
+      }
+    
+      alert("El producto se ha cargato al carrito correctamente")
+    } catch (error) {
+     console.error("Hubo un error al cargar el producto", error) 
+    }
+  }
   const handleNewComment = async(e)=>{
     try {
       e.preventDefault();
@@ -133,7 +173,7 @@ export const Detail = () => {
             >
               Contáctanos por WhatsApp
             </button>
-            <button className={styles.comprarButton} onClick={handleBuy}>Añade al carrito</button>
+            <button className={styles.comprarButton} onClick={addProduct}>Añade al carrito</button>
             {/* <button className={styles.comprarButton} onClick={handleBuy}>Añade al carrito</button>
             {preferenceId && <Wallet initialization={{ preferenceId: preferenceId }} />} */}
                 </div>

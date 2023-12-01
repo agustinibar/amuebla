@@ -1,0 +1,40 @@
+
+.shoppingCartContainer {
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.cartHeader {
+  background-color: #f1f1f1;
+  padding: 10px;
+  text-align: center;
+  font-size: 24px;
+  font-family: 'Jost', sans-serif;
+}
+
+.cartList {
+  list-style: none;
+  padding: 0;
+}
+
+.cartItem {
+  border: 1px solid #ddd;
+  margin: 10px 0;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.productInfo {
+  display: flex;
+  align-items: center;
+  font-family: 'Jost', sans-serif;
+  font-size: bold;
+}
+
+.productName {
+  margin-right: 20px;
+}
+.productPrice {
+    margin-left: 20%;
+}

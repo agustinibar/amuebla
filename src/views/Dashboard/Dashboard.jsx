@@ -73,7 +73,7 @@ export const Dashboard = () => {
         className={styles.formInput}
         placeholder="Precio"
         type='text'
-        onChange={(e) => setProductPrice(e.target.value)}
+        onChange={(e) => setProductPrice(parseFloat(e.target.value))}
       ></input>
        <input
               className={styles.range}
