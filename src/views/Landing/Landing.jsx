@@ -69,7 +69,7 @@ export const Landing = () => {
     </video>
 
     <div className={styles.overlay}>
-      <h1 className={styles.title}>Chateau Design</h1>
+      <h1 className={styles.title}>A-muebla</h1>
       <input
         className={styles.loginInput}
         placeholder="Email..."

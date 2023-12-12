@@ -31,7 +31,7 @@ export const Navbar = () => {
   return (
     <nav className={styles.navbar}>
       <Link to="/home" className={styles.navbarTitle}>
-        Chateau
+        A-muebla
       </Link>
      
       <div>

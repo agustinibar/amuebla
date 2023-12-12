@@ -6,14 +6,14 @@ import { getDownloadURL, ref } from 'firebase/storage';
 import styles from '../Home/home.module.css'
 import { Link, NavLink } from 'react-router-dom';
 import { SearchBar } from '../../components/SearchBar/SearchBar';
-import { Footer } from '../../components/Footer/Footer';
+
 
 export const Home = () => {
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
-  const productsCollectionRef= collection(db, "products"); 
-  
+  const productsCollectionRef = collection(db, "products");
+
   useEffect(() => {
     const getProductList = async () => {
       try {
@@ -42,20 +42,23 @@ export const Home = () => {
     };
 
     getProductList();
-  }, [productsCollectionRef]);
-  
-  const handleSearchResults = (filteredProducts) => {
-    setProducts(filteredProducts);
-  };
+  }, []);
 
+  const handleSearchResults = (searchTerm) => {
+    const filteredResults = products.filter((product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredProducts(filteredResults);
+  };
+  
   return (
     <>
       <Navbar />
-      <h1>Busca por nombre: </h1>
-      <SearchBar
+      {/* <h1>Busca por nombre: </h1> */}
+      {/* <SearchBar
       products={products}
       onSearchResults={handleSearchResults}
-      />
+      /> */}
       <div className={styles.cardContainer}>
         {products.map((product) => (
           <>

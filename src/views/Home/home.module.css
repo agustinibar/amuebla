@@ -6,6 +6,7 @@ body{
 .cardContainer {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .card {
@@ -13,7 +14,7 @@ body{
   border-radius: 8px;
   padding: 16px;
   padding-bottom: 5px;
-  margin: 5px;
+  margin: 10px;
   max-width: 250px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; 
@@ -22,7 +23,7 @@ body{
 }
 
 .card:hover {
-  transform: scale(1.05);
+  transform: scale(1.01);
   box-shadow: 0 0 15px rgba(7, 7, 7, 0.3);
 }
 

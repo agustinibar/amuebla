@@ -15,7 +15,6 @@ export const Detail = () => {
   const [comments, setNewComments] = useState([])
   const [newComment, setNewComment] = useState('');
 
- 
 
   useEffect(()=>{
     const detailId = async () =>{
@@ -156,6 +155,7 @@ export const Detail = () => {
           {comments.map((comment, index) => (
             <li key={index} className={styles.commentItem}>
               <p>- {comment.comment} -</p>
+              <p>- {comment.answer} -</p>
             </li>
           ))}
         </ul>

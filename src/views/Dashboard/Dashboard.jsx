@@ -43,7 +43,7 @@ export const Dashboard = () => {
         // Actualiza el estado al hacer clic en un elemento del menú
         setSelectedComponent(menuItem);
       };
-
+      
   return (
     <>
     <Navbar />
